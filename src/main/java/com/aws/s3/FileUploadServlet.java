@@ -20,6 +20,8 @@ public class FileUploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
+	private static final String AWS_URL_FOLDER = System.getenv("CLOUDCUBE_URL_FOLDER");
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -30,14 +32,9 @@ public class FileUploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
 		
-		String description = req.getParameter("description");
-		System.out.println("Description: " + description);
-		
 		Part part = req.getPart("file");
 		
-		String fileName = "bm8mh7i83leo/public/jacobin/" + getFileName(part);
-		
-		System.out.println("fileName: " + fileName);
+		String fileName = AWS_URL_FOLDER + getFileName(part);
 		
 		String message = "";
 

@@ -13,9 +13,7 @@
 		</div>
 		
 		<div>
-		<form action="upload" method="post" enctype="multipart/form-data">
-			<p>Description: <input type="text" name="description" size="30" required></p>
-			
+		<form action="upload" method="post" enctype="multipart/form-data">		
 			<p><input type="file" name="file" required></p>
 			
 			<p><button type="submit">Submit</button></p>

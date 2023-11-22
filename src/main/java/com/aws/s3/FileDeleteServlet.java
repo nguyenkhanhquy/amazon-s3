@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/delete-file"})
+@WebServlet(urlPatterns = {"/delete"})
 public class FileDeleteServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static final String AWS_URL_FOLDER = System.getenv("CLOUDCUBE_URL_FOLDER");
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
@@ -26,7 +28,7 @@ public class FileDeleteServlet extends HttpServlet {
 		
 		String fileName = req.getParameter("fileName");
 		
-		fileName = "bm8mh7i83leo/public/jacobin/" + fileName;
+		fileName = AWS_URL_FOLDER + fileName;
 		
 		S3Util.deleteFile(fileName);
 		
