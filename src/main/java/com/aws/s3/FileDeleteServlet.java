@@ -26,7 +26,7 @@ public class FileDeleteServlet extends HttpServlet {
 		
 		String fileName = req.getParameter("fileName");
 		
-		fileName = "e6drmmcymx3m/public/jacobin/" + fileName;
+		fileName = "bm8mh7i83leo/public/jacobin/" + fileName;
 		
 		S3Util.deleteFile(fileName);
 		

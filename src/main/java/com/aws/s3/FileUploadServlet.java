@@ -35,7 +35,7 @@ public class FileUploadServlet extends HttpServlet {
 		
 		Part part = req.getPart("file");
 		
-		String fileName = "e6drmmcymx3m/public/jacobin/" + getFileName(part);
+		String fileName = "bm8mh7i83leo/public/jacobin/" + getFileName(part);
 		
 		System.out.println("fileName: " + fileName);
 		
