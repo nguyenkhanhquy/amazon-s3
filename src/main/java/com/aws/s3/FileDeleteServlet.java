@@ -13,7 +13,7 @@ public class FileDeleteServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String AWS_URL_FOLDER = System.getenv("CLOUDCUBE_URL_FOLDER");
+	private static final String AWS_URL_FOLDER = System.getenv("AWS_URL_FOLDER");
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 

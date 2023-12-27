@@ -20,7 +20,7 @@ public class FileUploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String AWS_URL_FOLDER = System.getenv("CLOUDCUBE_URL_FOLDER");
+	private static final String AWS_URL_FOLDER = System.getenv("AWS_URL_FOLDER");
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,7 +34,11 @@ public class FileUploadServlet extends HttpServlet {
 		
 		Part part = req.getPart("file");
 		
-		String fileName = AWS_URL_FOLDER + getFileName(part);
+		String originalFileName = S3Util.getFileName(part);
+		
+		String newFileName = "a" + originalFileName.substring(originalFileName.lastIndexOf('.'));
+		
+		String fileName = AWS_URL_FOLDER + newFileName;
 		
 		String message = "";
 
@@ -47,12 +51,5 @@ public class FileUploadServlet extends HttpServlet {
 		
 		req.setAttribute("message", message);
 		req.getRequestDispatcher("message.jsp").forward(req, resp);
-	}
-	
-	private String getFileName(Part part) {
-		String contentDisposition = part.getHeader("content-disposition");
-		int beginIndex = contentDisposition.indexOf("filename=") + 10;
-		int endIndex = contentDisposition.length() - 1;
-		return contentDisposition.substring(beginIndex, endIndex);
 	}
 }

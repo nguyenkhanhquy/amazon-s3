@@ -3,6 +3,8 @@ package com.aws.s3;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.servlet.http.Part;
+
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -17,11 +19,11 @@ import software.amazon.awssdk.regions.Region;
 
 public class S3Util {
 	
-	private static final String BUCKET = "cloud-cube-us2";
-	private static final String AWS_ACCESS_KEY = System.getenv("CLOUDCUBE_ACCESS_KEY_ID");
-	private static final String AWS_SECRET_KEY = System.getenv("CLOUDCUBE_SECRET_ACCESS_KEY");
-	private static final String AWS_REGION = System.getenv("CLOUDCUBE_REGION");
-
+	private static final String AWS_ACCESS_KEY = System.getenv("AWS_ACCESS_KEY_ID");
+	private static final String AWS_SECRET_KEY = System.getenv("AWS_SECRET_ACCESS_KEY");
+	private static final String AWS_REGION = System.getenv("AWS_REGION");
+	private static final String AWS_BUCKET = System.getenv("AWS_BUCKET");
+	
 	public static void uploadFile(String fileName, InputStream inputStream) 
 			throws S3Exception, AwsServiceException, SdkClientException, IOException {
 		
@@ -34,7 +36,7 @@ public class S3Util {
 				.build();
 		
 		PutObjectRequest req = PutObjectRequest.builder()
-				.bucket(BUCKET)
+				.bucket(AWS_BUCKET)
 				.key(fileName)
 				.acl("public-read")
 				.build();
@@ -54,10 +56,17 @@ public class S3Util {
 				.build();
 
         DeleteObjectRequest req = DeleteObjectRequest.builder()
-				.bucket(BUCKET)
+				.bucket(AWS_BUCKET)
 				.key(fileName)
 				.build();
 
         client.deleteObject(req);
     }
+	
+	public static String getFileName(Part part) {
+		String contentDisposition = part.getHeader("content-disposition");
+		int beginIndex = contentDisposition.indexOf("filename=") + 10;
+		int endIndex = contentDisposition.length() - 1;
+		return contentDisposition.substring(beginIndex, endIndex);
+	}
 }
