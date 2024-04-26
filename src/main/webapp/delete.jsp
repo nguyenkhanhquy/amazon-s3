@@ -13,12 +13,12 @@
 		</div>
 		
 		<div>
-		<form action="delete" method="post">
-			<p>File name: <input type="text" name="fileName" size="30" required></p>
-			
-			<p><button type="submit">Submit</button></p>
-		</form>
-	</div>
+			<form action="delete" method="post">
+				<p>File name: <input type="text" name="fileName" size="30" required></p>
+				
+				<p><button type="submit">Submit</button></p>
+			</form>
+		</div>
 	</div>
 </body>
 </html>
